@@ -29,7 +29,7 @@ app.get('/api/student/:id',(req,res) => {
 app.post('/api/student',(req,res) => {
     const {name, currentClass, division} = req.body;
     if((!name) || (!currentClass) || (!division)) {
-        res.status(400);
+        res.status(400).send("Error");
         return;
     }
     const newStudent = {
@@ -48,7 +48,7 @@ app.put('/api/student/:id',(req,res) => {
     const student = data.find(student => student.id === parseInt(id));
     const newName = req.body.name;
     if((!student) || (!newName)) { 
-        res.status(400);
+        res.status(400).send("Error");
         return;
     }
     student.name = newName;
@@ -59,7 +59,7 @@ app.delete('/api/student/:id',(req,res) => {
     const id = req.params.id;
     const studentIndex = data.findIndex((student) => parseInt(id) === student.id);
     if(studentIndex === -1) {
-        res.status(400);
+        res.status(400).send("Error");
         return;
     }
     
