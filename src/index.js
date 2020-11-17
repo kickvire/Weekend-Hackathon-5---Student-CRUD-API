@@ -19,7 +19,7 @@ app.get('/api/student/:id',(req,res) => {
     const id = req.params.id;
     const student = data.find((student) => student.id === parseInt(id));
     if(!student) {
-        res.status(404);
+        res.status(404).send("Error");
         return;
     }
     res.send(student);
