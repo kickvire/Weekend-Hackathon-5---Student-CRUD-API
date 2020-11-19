@@ -26,22 +26,28 @@ app.get('/api/student/:id',(req,res) => {
 
 });
 
-app.post('/api/student',(req,res) => {
-    const {name, currentClass, division} = req.body;
-    if((!name) || (!currentClass) || (!division)) {
-        res.status(400).send("Error");
+app.post("/api/student", (req,res)=>{
+
+    const student= {
+        id: studentArray[studentArray.length-1].id +1,
+        ...req.body,
+        currentClass: parseInt(req.body.currentClass)
+    }
+
+    if(!student.name || !student.currentClass || !student.division){
+        
+        //res.setHeader('{"content-type":"application/x-www-form-urlencoded"}');
+        res.status(400).send();
         return;
     }
-    const newStudent = {
-        id: data.length + 1,
-        name: name,
-        currentClass: currentClass,
-        division: division
-    }
-    data.push(newStudent);
-    res.send(newStudent.id);
 
-});
+    studentArray.push(student);
+
+    //res.setHeader(['{"content-type":"application/x-www-form-urlencoded"}']);
+    let id = student.id; 
+    // res.json({"id" : +id});
+    res.send({"id":id});
+})
 
 app.put('/api/student/:id',(req,res) => {
     const id = req.params.id;
