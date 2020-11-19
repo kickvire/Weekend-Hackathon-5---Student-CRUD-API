@@ -29,7 +29,7 @@ app.get('/api/student/:id',(req,res) => {
 app.post("/api/student", (req,res)=>{
 
     const student= {
-        id: studentArray[studentArray.length-1].id +1,
+        id: data[data.length-1].id +1,
         ...req.body,
         currentClass: parseInt(req.body.currentClass)
     }
@@ -41,7 +41,7 @@ app.post("/api/student", (req,res)=>{
         return;
     }
 
-    studentArray.push(student);
+    data.push(student);
 
     //res.setHeader(['{"content-type":"application/x-www-form-urlencoded"}']);
     let id = student.id; 
