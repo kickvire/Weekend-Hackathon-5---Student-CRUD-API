@@ -51,14 +51,27 @@ app.post("/api/student", (req,res)=>{
 
 app.put('/api/student/:id',(req,res) => {
     const id = req.params.id;
+  
     const student = data.find(student => student.id === parseInt(id));
-    const newName = req.body.name;
-    if((!student) || (!newName)) { 
+
+    if((!student)||(!student.name)){ 
         res.status(400).send("Error");
         return;
     }
-    student.name = newName;
-    res.send({"name":newName});
+    const studentIndex = data.findIndex((student) => student.id === parseInt(id));
+      const newStudent= {
+        id: id,
+        ...student,
+        ...req.body
+    }
+     let classStudent = Number(newStudent.currentClass); 
+
+    newStudent.currentClass = classStudent;
+
+    data.splice(studentIndex, 1, newStudent);
+
+    //res.setHeader(['{"content-type":"application/x-www-form-urlencoded"}']);
+    res.send(newStudent.name);
 
 });
 
