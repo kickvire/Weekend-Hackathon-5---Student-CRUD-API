@@ -58,7 +58,7 @@ app.put('/api/student/:id',(req,res) => {
         return;
     }
     student.name = newName;
-    res.send(student);
+    res.send({"name":newName});
 
 });
 
